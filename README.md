@@ -1,4 +1,4 @@
-# Penyisihan CTF GEMASTIK 2023
+# Penyisihan CTF GEMASTIK 2024
 
 ---
 
