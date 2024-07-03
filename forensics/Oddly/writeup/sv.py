@@ -1,4 +1,6 @@
 from scapy.all import *
+
+# https://gist.github.com/hanasuru/d3c39a0f2f55d45f9bca0860836a50c7
 from rod import ROD
 
 import zlib
