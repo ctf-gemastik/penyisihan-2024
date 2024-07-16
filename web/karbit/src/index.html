@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waifus Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        .waifu-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .waifu-item {
+            position: relative;
+        }
+
+        .card {
+            cursor: pointer;
+        }
+
+        .card-img-top {
+            max-height: 200px;
+            object-fit: cover;
+        }
+
+        .btn-container {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .btn {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body data-bs-theme="dark">
+    <div class="container">
+        <h1 class="text-center mt-5">Claim Your Waifu</h1>
+        <div class="waifus waifu-grid mt-4"></div>
+        <h2 class="text-center mt-5">Your Claimed Waifus</h2>
+        <div class="claimed-waifus waifu-grid mt-4"></div>
+    </div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/dompurify@latest/dist/purify.min.js"></script>
+
+<script>
+    const waifusContainer = document.querySelector(".waifus");
+    const claimedWaifusContainer = document.querySelector(".claimed-waifus");
+    const REGEX_SAVE_PROPS = /['"]/;
+    const initialHash = location.hash ? atob(location.hash.substring(1)) : "";
+    function createWaifuCardHTML(file, buttonText, buttonAction) {
+        const sanitizedFile = DOMPurify.sanitize(file);
+        const imgHTML = `<img src="${sanitizedFile}" class="card-img-top">`;
+        const buttonHTML = `<button class="btn btn-outline-light" onclick="${buttonAction}('${sanitizedFile}')">${buttonText}</button>`;
+        return `<div class="card text-center waifu-item">${imgHTML}<div class="btn-container">${buttonHTML}</div></div>`;
+    }
+
+    function throwAlert(message) {
+        document.location.hash = "";
+        alert(message);
+        document.location = document.referrer;
+    }
+
+    function claimWaifu(file) {
+        const sanitizedPath = DOMPurify.sanitize(new URL(file).pathname);
+        let currentHash = location.hash ? atob(location.hash.substring(1)) : "";
+        const currentPaths = currentHash ? currentHash.split("|") : [];
+        if (!currentPaths.includes(sanitizedPath)) {
+            currentPaths.push(sanitizedPath);
+            location.hash = btoa(currentPaths.join("|"));
+            displayClaimedWaifus(currentPaths);
+        }
+    }
+
+    function removeWaifu(file) {
+        const sanitizedPath = DOMPurify.sanitize(new URL(file).pathname);
+        let currentHash = atob(location.hash.substring(1));
+        const currentPaths = currentHash.split("|").filter(p => p !== sanitizedPath);
+        location.hash = btoa(currentPaths.join("|"));
+        displayClaimedWaifus(currentPaths);
+    }
+
+    function displayClaimedWaifus(paths) {
+        if (REGEX_SAVE_PROPS.test(initialHash)) {
+            throwAlert("Invalid characters detected in the hash. Please try again.");
+        }
+        let claimedWaifusHTML = "";
+        paths.forEach((path) => {
+            const file = `https://i.waifu.pics${path}`;
+            const cardHTML = createWaifuCardHTML(file, 'Remove', 'removeWaifu');
+            claimedWaifusHTML += cardHTML;
+        });
+        claimedWaifusContainer.innerHTML = claimedWaifusHTML;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch("https://api.waifu.pics/many/sfw/smile", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({}),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                let waifusHTML = "";
+                data.files.slice(0, 16).forEach((file) => {
+                    const cardHTML = createWaifuCardHTML(file, 'Claim', 'claimWaifu');
+                    waifusHTML += cardHTML;
+                });
+                waifusContainer.innerHTML = waifusHTML;
+            });
+
+        const initialPaths = initialHash ? initialHash.split("|") : [];
+        displayClaimedWaifus(initialPaths);
+    });
+</script>
+
+</html>
