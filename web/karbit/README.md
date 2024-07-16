@@ -17,7 +17,7 @@ Setelah bertahun tahun menjadi orang normal, akhirnya kamu berkesempatan untuk m
 medium
 
 ## Hints
-* it's seems you need something to bypass the alert, try to learn how sanboxing works.
+* it's seems you need something to bypass the alert, try to learn how sanboxing works. Note, this may require us to deploy our own http server, i suggest you to use `ngrok tcp <port>` command to expose your local server to the internet.
 * the cookie is set to SameSite=Strict, the browser will block the cookie from being sent in a cross-site request, try to learn how origin works and what you can do to access "non-restricted" context from "restricted" context.
 ## Tags
 XSS, XSS Sanitizer Bypass, SameSite Strict Bypass, Alert and Location Redirect Bypass
