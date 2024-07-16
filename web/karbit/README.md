@@ -29,3 +29,6 @@ Penjelasan cara menjalankan service yang dibutuhkan serta requirementsnya.
     ```
     docker-compose up --build --detach
     ```
+
+## Attachment
+- ./dist.zip

@@ -2,3 +2,4 @@
 !/bot/extensions/.gitkeep
 /bot/node_modules
 /bot/bun.lockb
+/dist

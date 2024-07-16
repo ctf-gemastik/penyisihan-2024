@@ -20,7 +20,7 @@ services:
       APPNAME: Admin
       APPURL: http://proxy/
       APPURLREGEX: ^http(|s)://.*$
-      APPFLAG: gemastik{S3l4m4t_anda_t3lah_m3nj4d1_r4j4_karbit}""
+      APPFLAG: gemastik{S3l4m4t_anda_t3lah_m3nj4d1_r4j4_karbit}
       APPLIMIT: 2
       APPLIMITTIME: 60
       USE_PROXY: 1
