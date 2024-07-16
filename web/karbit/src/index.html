@@ -57,7 +57,6 @@
     const claimedWaifusContainer = document.querySelector(".claimed-waifus");
     const REGEX_SAVE_PROPS = /['"]/;
     const initialHash = location.hash ? atob(location.hash.substring(1)) : "";
-
     function createWaifuCardHTML(file, buttonText, buttonAction) {
         const sanitizedFile = DOMPurify.sanitize(file);
         const imgHTML = `<img src="${sanitizedFile}" class="card-img-top">`;

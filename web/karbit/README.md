@@ -1,49 +1,31 @@
-# CTF-XSS-BOT
+# Karbit
 
-![Alt text](./assets/bothome.png)
+by Dimas Maulana
 
-CTF-XSS-BOT is a flexible template designed for crafting Cross-Site Scripting
-(XSS) challenges in Capture The Flag (CTF) competitions. This project provides a
-foundation for effortlessly setting up an environment to host XSS challenges,
-while utilizing Puppeteer to simulate web browser behavior.
+---
 
-## Features
+## Flag
 
-- **Customize APP Name:** Easily set a custom application name to match your challenge theme.
-- **White List URL By Regex:** Define a regex pattern to whitelist specific URLs for challenge interaction.
-- **Rate Limiting:** Prevent abuse with built-in rate limiting to control participant interactions.
-- **Automated Browser Extension Installation:** Automatically install the browser extension.
+```
+gemastik{S3l4m4t_anda_t3lah_m3nj4d1_r4j4_karbit}
+```
 
-## Usage
+## Description
+Setelah bertahun tahun menjadi orang normal, akhirnya kamu berkesempatan untuk menjadi raja Karbit. Tapi, untuk menjadi raja Karbit, kamu harus menyelesaikan tantangan yang diberikan oleh raja Karbit sebelumnya. Kamu harus bisa membuktikan bahwa kamu bisa mencuri data rahasia dari raja Karbit sebelumnya. Curi data tersebut dan buktikan bahwa kamu layak menjadi raja Karbit.
 
-1. Clone this repository:
-   ```sh
-   git clone https://github.com/dimasma0305/CTF-XSS-BOT.git
-   cd CTF-XSS-BOT
-   ```
+## Difficultys
+medium
 
-2. Customize the source code of your challenge at `./src/*`.
+## Hints
+* it's seems you need something to bypass the alert, try to learn how sanboxing works.
+* the cookie is set to SameSite=Strict, the browser will block the cookie from being sent in a cross-site request, try to learn how origin works and what you can do to access "non-restricted" context from "restricted" context.
+## Tags
+XSS, XSS Sanitizer Bypass, SameSite Strict Bypass, Alert and Location Redirect Bypass
 
-3. Configure the parameters in `docker-compose.yaml`:
-   ```yaml
-   ...snip...
-    environment:
-        APPNAME: YourAppName
-        APPURL: YourAppURL
-        APPURLREGEX: YourAppURLRegex
-        APPFLAG: dev{flag}
-        APPLIMIT: 2
-        APPLIMITTIME: 60
-    ...snip...
-   ```
-
-4. Deploy the template using Docker Compose:
-   ```sh
-   docker-compose up -d
-   ```
-   ![Deploy with Docker](./assets/deploy-wdocker.png)
-
-5. Your `./src` will be hosted at http://localhost/, and the bot can be accessed
-   at http://localhost/report. Customize your XSS challenges and empower participants to master web security.
-
-6. If you want to add a browser extension, you can add a extension folder in `./bot/extensions`, the extension will be automatically installed when the bot is started.
+## Deployment
+Penjelasan cara menjalankan service yang dibutuhkan serta requirementsnya.
+- Install docker engine>=19.03.12 and docker-compose>=1.26.2.
+- Run the container using:
+    ```
+    docker-compose up --build --detach
+    ```

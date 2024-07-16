@@ -20,7 +20,7 @@ services:
       APPNAME: Admin
       APPURL: http://proxy/
       APPURLREGEX: ^http(|s)://.*$
-      APPFLAG: dev{flag}
+      APPFLAG: gemastik{S3l4m4t_anda_t3lah_m3nj4d1_r4j4_karbit}""
       APPLIMIT: 2
       APPLIMITTIME: 60
       USE_PROXY: 1
@@ -28,8 +28,8 @@ services:
     networks:
       - internal
     # uncoment this if you need to run the bot in GUI mode
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
+    # volumes:
+      # - /tmp/.X11-unix:/tmp/.X11-unix
 
 networks:
   internal:
