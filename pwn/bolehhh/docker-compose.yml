@@ -1,0 +1,10 @@
+version: '3'
+services:
+  bolehhh:
+    image: bolehhh
+    build: .
+    restart: always
+    environment:
+      - TERM=xterm
+    ports:
+      - "11101:11101"
