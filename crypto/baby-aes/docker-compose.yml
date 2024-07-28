@@ -1,0 +1,7 @@
+version: "3"
+services:
+  chall:
+    restart: always
+    build: .
+    ports:
+        - "10004:4444"
