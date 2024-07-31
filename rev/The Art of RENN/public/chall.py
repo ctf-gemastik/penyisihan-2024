@@ -4,8 +4,7 @@ import numpy as np
 
 # PyTorch (torch) version = 2.1.2+cu118
 
-flag = "gemastik{________________________}"
-assert(len(flag) == 34)
+flag = "gemastik{REDACTED}"
 
 def convert(ip):
 	flag = [float(ord(i)) for i in ip]
