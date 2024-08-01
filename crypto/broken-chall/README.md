@@ -1,4 +1,4 @@
-# baby-rsa
+# broken-chall
 
 by Chovid99
 
@@ -11,7 +11,7 @@ gemastik{do_not_skip_data_structure_and_algorithm_class_to_be_a_better_ctf_playe
 ```
 
 ## Description
-I recently learned about RSA scheme, and now I'm offering an RSA decryption service to anyone. Please provide a message that you would like to decrypt.
+I recently learned about the RSA scheme, and now I'm offering an RSA decryption service to anyone. I asked my friends to test it, and they said it is broken because they always receive the same output. Can you help me test it?
 
 ## Difficulty
 medium
