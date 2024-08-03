@@ -2,6 +2,7 @@
 #include <vector>
 #include <cstring>
 #include <unistd.h>
+#include <seccomp.h>
 
 #define MAX_STRING_SIZE 100
 #define MAX_NOTES 200
@@ -146,7 +147,14 @@ void oplan3(NoteManager& nm) {
 }
 
 void init() {
+    scmp_filter_ctx ctx;
     setvbuf(stdin, NULL, _IONBF, 0);
     setvbuf(stdout, NULL, _IONBF, 0);
     setvbuf(stderr, NULL, _IONBF, 0);
+    ctx = seccomp_init(SCMP_ACT_KILL);
+    seccomp_rule_add(ctx,SCMP_ACT_ALLOW,SCMP_SYS(open),0);
+    seccomp_rule_add(ctx,SCMP_ACT_ALLOW,SCMP_SYS(read),0);
+    seccomp_rule_add(ctx,SCMP_ACT_ALLOW,SCMP_SYS(write),0);
+    seccomp_rule_add(ctx,SCMP_ACT_ALLOW,SCMP_SYS(getdents),0);
+    seccomp_load(ctx);
 }
