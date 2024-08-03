@@ -18,14 +18,14 @@ ADD config/run_xinetd.sh /etc/run_xinetd.sh
 ADD config/run_challenge.sh /home/ctf/run_challenge.sh
 
 # Challenge files
-ADD flag.txt /home/ctf/flag.txt
+ADD flag_ulalaplusplus_is_here_hello.txt /home/ctf/flag_ulalaplusplus_is_here_hello.txt
 ADD release/ulala++ /home/ctf/ulala++
 
 # Set some proper permissions
-RUN chown -R root:ctf /home/ctf /home/ctf/flag.txt
+RUN chown -R root:ctf /home/ctf /home/ctf/
 RUN chmod 750 /home/ctf/ulala++
 RUN chmod 750 /home/ctf/run_challenge.sh
-RUN chmod 440 /home/ctf/flag.txt
+RUN chmod 440 /home/ctf/flag_ulalaplusplus_is_here_hello.txt
 RUN chmod 700 /etc/run_xinetd.sh
 
 RUN service xinetd restart
